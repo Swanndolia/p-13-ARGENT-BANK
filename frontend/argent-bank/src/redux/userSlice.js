@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    token: "",
+    token: null,
     user: {},
-    isLogin: false,
+    isEditingName: false,
 }
 
 export const userSlice = createSlice({
@@ -12,21 +12,26 @@ export const userSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.token = action.payload;
-            state.isLogin = true;
         },
         setUser: (state, action) => {
             state.user = action.payload;
         },
         logout: (state) => {
             state.token = null;
-            state.isLogin = false;
             state.user = {};
+            state.isEditingName = false;
         },
+        toggleEditing: (state) =>{
+            state.isEditingName = !state.isEditingName
+        }
     },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, setUser, logout, toggleEditing } = userSlice.actions;
 
 export const checkIfLogin = state => state.user.token !== null;
+export const getUser = state => state.user.user;
+export const getToken = state => state.user.token;
+export const getIfEditing = state => state.user.isEditingName;
 
 export default userSlice.reducer;

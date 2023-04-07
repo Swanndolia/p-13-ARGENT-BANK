@@ -1,41 +1,21 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import * as API from "../services/callAPI"
 import { useNavigate } from "react-router-dom";
-import { login, checkIfLogin } from '../redux/userSlice'
+import { login } from '../redux/userSlice'
 
 const Login = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const isLogin = useSelector(checkIfLogin)
-
-    async function getProfileWithToken() {
-        try {
-            const jwt = localStorage.getItem("jwt");
-            if (isLogin || jwt) {
-                const loadProfile = await API.getProfile(jwt);
-                navigate("/profile");
-                console.log("Error:", loadProfile.message);
-            }
-        } catch (error) {
-            console.log("Error:", error);
-        }
-    }
-    useEffect(() => {
-        if (localStorage.getItem("jwt") || isLogin) {
-            getProfileWithToken()
-            dispatch(login(localStorage.getItem("jwt")))
-        }
-    }, [dispatch, isLogin]);
-
     async function handleSubmit(event) {
         event.preventDefault();
         const loginResult = await API.tryLogin({ email: event.target[0].value, password: event.target[1].value })
         dispatch(login(loginResult.body.token))
-        localStorage.setItem("jwt", loginResult.body.token)
-        getProfileWithToken()
+        if(document.getElementById("remember-me").checked){
+            localStorage.setItem("jwt", loginResult.body.token)
+        }
+        navigate("/profile");
     }
 
     return (

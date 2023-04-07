@@ -25,3 +25,14 @@ export async function getProfile(token) {
             })
     )
 }
+export async function editName(data, token) {
+    return (
+        await axios.put('/user/profile', data, { headers: { Authorization: `Bearer ${token}` } })
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error
+            })
+    )
+}
