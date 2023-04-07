@@ -23,8 +23,8 @@ const Header = () => {
         if (localStorage.getItem("jwt") || isLogin) {
             dispatch(login(isLogin ? token : localStorage.getItem("jwt")))
             API.getProfile(isLogin ? token : localStorage.getItem("jwt")).then((response => dispatch(setUser(response.body))))
-        }// eslint-disable-next-line, trigger refresh only when token is changed from whatever the page it's changed from
-    }, [token]);
+        }// eslint-disable-next-line
+    }, [token]);//trigger refresh only when token is changed from whatever the page it's changed from
 
     return (
 

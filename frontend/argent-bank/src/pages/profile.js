@@ -4,6 +4,7 @@ import { checkIfLogin, getIfEditing, toggleEditing, getUser, setUser, getToken }
 import { useDispatch, useSelector } from "react-redux";
 import * as API from "../services/callAPI"
 
+
 const Profile = () => {
     const isLogin = useSelector(checkIfLogin);
     const isEditingName = useSelector(getIfEditing);
