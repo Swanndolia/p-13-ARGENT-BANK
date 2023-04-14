@@ -22,23 +22,29 @@ const Profile = () => {
         if (isEditingName) {
             return (
                 <div className="header">
-                    <input id="firstname"></input>
-                    <input id="lastname"></input>
-                    <br />
-                    <button onClick={async () => {
-                        const updatedProfile = await API.editName({firstName: document.getElementById("firstname").value, lastName: document.getElementById("lastname").value}, token)
-                        dispatch(toggleEditing())
-                        dispatch(setUser(updatedProfile.body))
-                    }} className="edit-button">Save
-                    </button>
-                    <button onClick={() => dispatch(toggleEditing())} className="edit-button">Cancel</button>
+                    <h1>Welcome back</h1>
+                    <div id="edit-profile">
+                        <span id="edit-profile-line-container">
+                            <input id="firstname" placeholder={user.firstName}></input>
+                            <input id="lastname" placeholder={user.lastName}></input>
+                        </span>
+                        <span id="edit-profile-line-container">
+                            <button onClick={async () => {
+                                const updatedProfile = await API.editName({ firstName: document.getElementById("firstname").value, lastName: document.getElementById("lastname").value }, token)
+                                dispatch(toggleEditing())
+                                dispatch(setUser(updatedProfile.body))
+                            }} className="edit-button">Save
+                            </button>
+                            <button onClick={() => dispatch(toggleEditing())} className="edit-button">Cancel</button>
+                        </span>
+                    </div>
                 </div>
             )
         }
         else {
             return (
                 <div className="header">
-                    <h1>Welcome back<br />{user.firstName +  " " + user.lastName}!</h1>
+                    <h1>Welcome back<br />{user.firstName + " " + user.lastName}!</h1>
                     <button onClick={() => dispatch(toggleEditing())} className="edit-button">Edit Name</button>
                 </div>
             )

@@ -13,6 +13,23 @@ body {
   min-height: 100vh;
 }
 
+#edit-profile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+#edit-profile-line-container{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+#edit-profile-line-container > *{
+  min-width: 100px;
+  padding: 12px;
+  margin: 0;
+}
 .main {
   flex: 1;
 }
@@ -54,6 +71,7 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .main-nav-item:hover {
